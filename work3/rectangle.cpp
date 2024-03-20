@@ -1,5 +1,4 @@
 // Rectangle
-// 
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -12,20 +11,24 @@ using namespace std;
 // Point坐标类
 class Point {
 private:
-    double _x, _y;
+    double _x, _y; // 私有成员变量，存储点的x和y坐标
 
 public:
+    // 构造函数，默认坐标为(0,0)，也可以指定x和y的值
     Point(double x = 0, double y = 0) : _x(x), _y(y) {}
 
+    // 设置点的坐标
     void Set(double x, double y) {
         _x = x;
         _y = y;
     }
 
+    // 获取x坐标
     double GetX() const { return _x; }
+    // 获取y坐标
     double GetY() const { return _y; }
 
-
+    // 打印点的坐标
     void Show() const {
         cout << _x << " " << _y;
     }
@@ -36,45 +39,43 @@ public:
 // Rect类
 class Rect {
 private:
-    Point _p1, _p2;
+    Point _p1, _p2; // 矩形的两个对角点
 
 public:
+    // 构造函数，使用两个点初始化矩形。默认情况下，这两个点都是原点(0,0)
     Rect(Point p1 = Point(), Point p2 = Point()) : _p1(p1), _p2(p2) {}
 
+    // 检查矩形是否有效，即对角线的两个点不重合，并且x和y坐标各不相等
     bool IsValid() const {
         return _p1.GetX() != _p2.GetX() && _p1.GetY() != _p2.GetY();
     }
 
+    // 移动矩形，通过在x和y方向上添加偏移量
     void Move(double dx, double dy) {
         _p1.Set(_p1.GetX() + dx, _p1.GetY() + dy);
         _p2.Set(_p2.GetX() + dx, _p2.GetY() + dy);
     }
 
+    // 计算矩形面积
     double Area() const {
         return abs((_p2.GetX() - _p1.GetX()) * (_p2.GetY() - _p1.GetY()));
     }
 
+    // 计算矩形周长
     double Perimeter() const {
         return 2 * (abs(_p2.GetX() - _p1.GetX()) + abs(_p2.GetY() - _p1.GetY()));
     }
 
+    // 显示矩形信息，包括对角线的两个点、面积和周长。如果矩形不有效，则显示错误消息
     void Show() const {
         if (!IsValid()) {
-            // 按照输出标准，不需要cout << "Rect(";
             _p1.Show();
             cout << " ";
             _p2.Show();
-
-            // 按照输出标准，不需要cout << ") ";
-            // 下面添加一个空格即可
-            cout << " ";
-
-            // 不能建立矩形
-            cout << "Can't construct rectangle." << endl; 
+            cout << " Can't construct rectangle." << endl; 
             return;
         }
 
-        // 可建立矩形的情况
         cout << "Rect(";
         _p1.Show();
         cout << " ";
@@ -82,9 +83,12 @@ public:
         cout << ") area=" << Area() << " perimeter=" << Perimeter() << endl;
     }
 
+    // 获取矩形的第一个对角点
     Point GetP1() const { return _p1; }
+    // 获取矩形的第二个对角点
     Point GetP2() const { return _p2; }
 };
+
 
 
 
